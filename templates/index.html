@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}PocketSmart AI - Smart Budget & Recommendation Assistant{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag">
+      <span>✨ Powered by Gemini 1.5 Flash Pro</span>
+      {% if gemini_info.configured %}
+        <span class="badge badge-emerald">Online</span>
+      {% else %}
+        <span class="badge badge-amber">Smart Hybrid Engine</span>
+      {% endif %}
+    </div>
+
+    <h1 class="hero-title">
+      Your Smart Budget & <br>
+      <span class="gradient-text">Lifestyle Recommendation Assistant</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Eliminate financial guesswork across everyday lifestyle needs. 
+      PocketSmart AI cross-references trusted platforms like <strong>IKEA, Amazon, Flipkart, Swiggy, Zomato, and OYO</strong> 
+      to generate personalized, budget-strict recommendations.
+    </p>
+
+    <div class="hero-cta">
+      <a href="/home-planner" class="btn btn-primary btn-lg">🛋️ Home Interior</a>
+      <a href="/party-planner" class="btn btn-emerald btn-lg">🎉 Party Planner</a>
+      <a href="/jewelry-planner" class="btn btn-secondary btn-lg">💎 Jewelry Matcher</a>
+    </div>
+  </div>
+</section>
+
+<!-- Category Selector Grid -->
+<section class="container">
+  <div style="text-align: center; margin-bottom: 20px;">
+    <h2 style="font-size: 2.2rem; margin-bottom: 8px;">Explore Smart Planners</h2>
+    <p style="color: var(--text-secondary);">Select a lifestyle category to start your intelligent budget allocation</p>
+  </div>
+
+  <div class="categories-grid">
+    <!-- Home Interior Card -->
+    <div class="glass-panel category-card">
+      <div>
+        <div class="category-icon icon-home">🛋️</div>
+        <h3 class="category-title">Home Interior Planning</h3>
+        <p class="category-desc">
+          Plan furniture, lighting, fans, dining tables, and wall decor. 
+          Gemini balances functionality, aesthetics, and price across rooms without overspending.
+        </p>
+        <div class="category-platforms">
+          <span class="platform-badge platform-ikea">IKEA</span>
+          <span class="platform-badge platform-amazon">Amazon</span>
+          <span class="platform-badge platform-flipkart">Flipkart</span>
+        </div>
+      </div>
+      <a href="/home-planner" class="btn btn-primary" style="width: 100%;">Launch Home Planner →</a>
+    </div>
+
+    <!-- Party Budget Card -->
+    <div class="glass-panel category-card">
+      <div>
+        <div class="category-icon icon-party">🎉</div>
+        <h3 class="category-title">AI Party Budget Planning</h3>
+        <p class="category-desc">
+          Organize birthdays, weddings, or corporate bashes with proportional per-head allocation 
+          covering catering, venue booking, theme decoration, and entertainment.
+        </p>
+        <div class="category-platforms">
+          <span class="platform-badge platform-swiggy">Swiggy</span>
+          <span class="platform-badge platform-zomato">Zomato</span>
+          <span class="platform-badge platform-oyo">OYO</span>
+          <span class="platform-badge platform-amazon">Amazon</span>
+        </div>
+      </div>
+      <a href="/party-planner" class="btn btn-emerald" style="width: 100%;">Plan Your Party →</a>
+    </div>
+
+    <!-- Jewelry Matcher Card -->
+    <div class="glass-panel category-card">
+      <div>
+        <div class="category-icon icon-jewelry">💎</div>
+        <h3 class="category-title">Occasion Jewelry Matcher</h3>
+        <p class="category-desc">
+          Upload an outfit photo or select an occasion style. Multimodal Gemini extracts color palettes, 
+          necklines, and embroidery to suggest matching jewelry sets within your budget.
+        </p>
+        <div class="category-platforms">
+          <span class="platform-badge platform-caratlane">CaratLane</span>
+          <span class="platform-badge platform-tanishq">Tanishq</span>
+          <span class="platform-badge platform-amazon">Amazon</span>
+          <span class="platform-badge platform-flipkart">Flipkart</span>
+        </div>
+      </div>
+      <a href="/jewelry-planner" class="btn btn-secondary" style="width: 100%;">Style Your Jewelry →</a>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section style="background: rgba(17, 24, 39, 0.4); padding: 70px 0; border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 50px;">
+      <h2 style="font-size: 2.2rem; margin-bottom: 12px;">Intelligent 4-Step Pipeline</h2>
+      <p style="color: var(--text-secondary);">How PocketSmart AI bridges multi-ecosystem shopping with generative reasoning</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+      <div class="glass-panel" style="padding: 24px; text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 12px;">1️⃣</div>
+        <h4 style="margin-bottom: 8px;">Define Parameters</h4>
+        <p style="font-size: 0.88rem; color: var(--text-secondary);">Input your target budget, room/event specifics, or upload an outfit picture.</p>
+      </div>
+
+      <div class="glass-panel" style="padding: 24px; text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 12px;">2️⃣</div>
+        <h4 style="margin-bottom: 8px;">Gemini 1.5 Analysis</h4>
+        <p style="font-size: 0.88rem; color: var(--text-secondary);">Gemini allocates funds mathematically across essential categories according to domain rules.</p>
+      </div>
+
+      <div class="glass-panel" style="padding: 24px; text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 12px;">3️⃣</div>
+        <h4 style="margin-bottom: 8px;">Cross-Platform Matching</h4>
+        <p style="font-size: 0.88rem; color: var(--text-secondary);">Items and services are curated from IKEA, Amazon, Flipkart, Swiggy, Zomato, and OYO.</p>
+      </div>
+
+      <div class="glass-panel" style="padding: 24px; text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 12px;">4️⃣</div>
+        <h4 style="margin-bottom: 8px;">Instant Action Plan</h4>
+        <p style="font-size: 0.88rem; color: var(--text-secondary);">Receive a visual shopping blueprint with direct links, savings breakdown, and styling tips.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Community Testimonials Banner -->
+<section class="container" style="padding: 70px 0; text-align: center;">
+  <div class="glass-panel" style="padding: 48px; border-radius: var(--radius-xl); background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(16, 185, 129, 0.08));">
+    <h2 style="font-size: 2.2rem; margin-bottom: 16px;">Trusted by 10,000+ Budget Planners</h2>
+    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 28px;">
+      From first-time homeowners to wedding planners, discover how PocketSmart AI prevents overspending and simplifies lifestyle shopping.
+    </p>
+    <a href="/testimonials" class="btn btn-secondary btn-lg">Read Real User Stories ⭐</a>
+  </div>
+</section>
+{% endblock %}

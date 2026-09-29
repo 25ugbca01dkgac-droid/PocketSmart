@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Party Budget Planner - PocketSmart AI{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="glass-panel planner-form-container">
+    <div class="form-header">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom: 8px;">
+        <span class="badge badge-rose">Scenario 2</span>
+        <span style="font-size: 0.85rem; color: var(--text-secondary);">Powered by Gemini 1.5 Flash Pro</span>
+      </div>
+      <h2>🎉 AI Party Budget Planner</h2>
+      <p>
+        Plan events with precision. PocketSmart AI proportionally splits your funds across 
+        <strong>Catering (Zomato/Swiggy)</strong>, <strong>Venue (OYO)</strong>, and <strong>Decor & Music (Amazon/Flipkart)</strong>.
+      </p>
+    </div>
+
+    <form method="POST" action="/generate-party" class="ajax-planner-form">
+      <div class="form-grid">
+        <!-- Budget Section -->
+        <div class="form-group full-width">
+          <label for="totalBudgetInput">
+            <span>Total Celebration Budget (INR)</span>
+            <span style="margin-left: auto; color: #34d399; font-weight: 700;">₹ <span id="budgetDisplay">30,000</span></span>
+          </label>
+          <div class="budget-input-wrapper">
+            <input type="range" id="budgetSlider" min="5000" max="300000" step="2500" value="30000" class="budget-slider">
+            <input type="number" id="totalBudgetInput" name="total_budget" class="form-control" value="30000" min="5000" max="1000000" style="width: 140px;" required>
+            <input type="hidden" name="currency" value="INR">
+          </div>
+        </div>
+
+        <!-- Event Type -->
+        <div class="form-group">
+          <label for="eventType">Event Type *</label>
+          <select id="eventType" name="event_type" class="form-control" required>
+            <option value="Birthday Celebration" selected>Birthday Celebration</option>
+            <option value="Wedding Reception / Sangeet">Wedding Reception / Sangeet</option>
+            <option value="Cocktail & House Party">Cocktail & House Party</option>
+            <option value="Corporate Mixer / Team Dinner">Corporate Mixer / Team Dinner</option>
+            <option value="Anniversary Gala">Anniversary Gala</option>
+            <option value="College Farewell / Reunion">College Farewell / Reunion</option>
+          </select>
+        </div>
+
+        <!-- Guest Count -->
+        <div class="form-group">
+          <label for="guestCount">Estimated Guest Count *</label>
+          <input type="number" id="guestCount" name="guest_count" class="form-control" value="25" min="2" max="500" required>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">AI uses this to calculate per-head catering & venue size.</span>
+        </div>
+
+        <!-- Venue Type -->
+        <div class="form-group">
+          <label for="venueType">Venue Preference</label>
+          <select id="venueType" name="venue_type" class="form-control">
+            <option value="OYO Townhouse / Party Suite" selected>OYO Townhouse / Party Suite</option>
+            <option value="Home / Private Terrace">Home / Private Terrace</option>
+            <option value="Banquet Hall / Community Space">Banquet Hall / Community Space</option>
+            <option value="Outdoor Lawn / Farmhouse">Outdoor Lawn / Farmhouse</option>
+          </select>
+        </div>
+
+        <!-- Food Preference -->
+        <div class="form-group">
+          <label for="foodPreference">Catering & Food Style</label>
+          <select id="foodPreference" name="food_preference" class="form-control">
+            <option value="Assorted Starters & Multi-Cuisine Buffet" selected>Multi-Cuisine Buffet & Starters</option>
+            <option value="Pure Veg Royal Feast">Pure Veg Royal Feast</option>
+            <option value="Finger Foods, Pizzas & Sliders">Finger Foods, Pizzas & Sliders</option>
+            <option value="Barbecue & Live Grills">Barbecue & Live Grills</option>
+            <option value="Continental & Dessert Spread">Continental & Dessert Spread</option>
+          </select>
+        </div>
+
+        <!-- Decoration Theme -->
+        <div class="form-group">
+          <label for="decorationTheme">Decoration Theme / Vibe</label>
+          <input type="text" id="decorationTheme" name="decoration_theme" class="form-control" value="Golden Fairy Lights & Neon Glow" placeholder="e.g. Retro Disco, Floral Elegance, Tropical">
+        </div>
+
+        <!-- Entertainment Checkbox -->
+        <div class="form-group" style="justify-content: center;">
+          <label class="chip-label" style="margin-top: 24px;">
+            <input type="checkbox" name="entertainment_needed" value="true" checked>
+            <span>Include DJ Sound / Karaoke Audio Setup</span>
+          </label>
+        </div>
+
+        <!-- Notes -->
+        <div class="form-group full-width">
+          <label for="notes">Special Event Notes (Optional)</label>
+          <textarea id="notes" name="notes" class="form-control" placeholder="e.g. Need sugar-free cake; Require early check-in for venue setup; Mostly youngsters attending."></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group full-width" style="margin-top: 14px;">
+          <button type="submit" class="btn btn-emerald btn-lg" style="width: 100%;">
+            🎉 Calculate & Generate Party Budget Plan
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

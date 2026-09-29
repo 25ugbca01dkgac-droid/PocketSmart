@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}{{ plan.title }} - PocketSmart AI{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 40px 24px;">
+  <!-- Breadcrumb & Top Bar -->
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+    <div>
+      <a href="/home-planner" style="color: var(--primary); font-size: 0.9rem;">← Back to Home Planner</a>
+      <h1 style="font-size: 2.2rem; margin-top: 6px;">{{ plan.title }}</h1>
+    </div>
+
+    <div style="display: flex; gap: 10px;">
+      <button onclick="window.print()" class="btn btn-secondary" style="padding: 8px 16px;">🖨️ Print Plan</button>
+      <a href="/home-planner" class="btn btn-primary" style="padding: 8px 16px;">+ Adjust Parameters</a>
+    </div>
+  </div>
+
+  <!-- Summary Banner -->
+  <div class="summary-banner">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+      <span class="badge badge-primary">AI Recommendation Analysis</span>
+      <span style="font-size: 0.85rem; color: var(--text-secondary);">Created: {{ plan.created_at }}</span>
+    </div>
+    <p style="font-size: 1.05rem; line-height: 1.6; color: var(--text-primary);">
+      {{ plan.summary }}
+    </p>
+
+    <!-- Stat Metric Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Defined Budget</div>
+        <div class="stat-val">{{ plan.currency }} {{ "{:,.0f}".format(plan.total_budget) }}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Estimated Spend</div>
+        <div class="stat-val primary">{{ plan.currency }} {{ "{:,.0f}".format(plan.total_estimated_cost) }}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Remaining Balance</div>
+        <div class="stat-val positive">{{ plan.currency }} {{ "{:,.0f}".format(plan.remaining_balance) }}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Curated Items</div>
+        <div class="stat-val">{{ plan.all_items|length }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Categories & Products Section -->
+  <div>
+    {% for cat in plan.categories %}
+      <div class="category-section">
+        <div class="category-sec-header">
+          <div>
+            <h3 style="font-size: 1.35rem;">{{ cat.category_name }}</h3>
+            <span style="font-size: 0.85rem; color: var(--text-secondary);">
+              Allocated: {{ plan.currency }} {{ "{:,.0f}".format(cat.allocated_amount) }} • Spent: {{ plan.currency }} {{ "{:,.0f}".format(cat.spent_amount) }}
+            </span>
+          </div>
+
+          <div style="width: 140px;">
+            <div style="display:flex; justify-content:space-between; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 4px;">
+              <span>Allocation</span>
+              <span>{{ cat.percentage_of_budget|round(1) }}%</span>
+            </div>
+            <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 999px; overflow: hidden;">
+              <div style="width: {{ cat.percentage_of_budget }}%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent-emerald)); border-radius: 999px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="products-grid">
+          {% for item in cat['items'] %}
+            <div class="product-card">
+              <div>
+                <div class="product-top">
+                  <span class="badge badge-primary">{{ item.category }}</span>
+                  {% set p_lower = item.platform|lower %}
+                  {% if 'ikea' in p_lower %}
+                    <span class="platform-badge platform-ikea">IKEA</span>
+                  {% elif 'amazon' in p_lower %}
+                    <span class="platform-badge platform-amazon">Amazon</span>
+                  {% elif 'flipkart' in p_lower %}
+                    <span class="platform-badge platform-flipkart">Flipkart</span>
+                  {% else %}
+                    <span class="platform-badge" style="background:#4b5563; color:#fff;">{{ item.platform }}</span>
+                  {% endif %}
+                </div>
+
+                <div class="product-name">{{ item.name }}</div>
+                <div style="font-size: 0.8rem; color: #fbbf24; margin: 4px 0 8px;">
+                  ★ {{ item.rating or 4.5 }} / 5.0
+                </div>
+
+                <div class="product-price">
+                  {{ plan.currency }} {{ "{:,.0f}".format(item.price) }}
+                  {% if item.quantity and item.quantity > 1 %}
+                    <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-secondary);">({{ item.quantity }} pcs)</span>
+                  {% endif %}
+                </div>
+
+                <div class="product-reason">
+                  {{ item.match_reason }}
+                </div>
+              </div>
+
+              <div style="margin-top: 14px;">
+                <a href="{{ item.buy_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: 100%; font-size: 0.85rem;">
+                  View on {{ item.platform }} ↗
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- AI Interior Design & Savings Tips -->
+  {% if plan.ai_tips %}
+    <div class="ai-tips-box">
+      <div class="ai-tips-header">
+        <span>💡</span>
+        <span>Gemini AI Interior Styling & Cost-Saving Tips</span>
+      </div>
+      <ul class="ai-tips-list">
+        {% for tip in plan.ai_tips %}
+          <li>{{ tip }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

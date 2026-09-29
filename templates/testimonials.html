@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}User Testimonials - PocketSmart AI{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 60px 24px;">
+  <div style="text-align: center; margin-bottom: 50px;">
+    <div class="hero-tag" style="margin-bottom: 16px;">
+      <span>⭐ Real Stories & Verified Reviews</span>
+    </div>
+    <h1 style="font-size: 2.8rem; margin-bottom: 14px;">Loved by Smart Planners Everywhere</h1>
+    <p style="color: var(--text-secondary); max-width: 650px; margin: 0 auto;">
+      See how users decorated their living spaces, organized dream birthday parties, and styled wedding attire—all strictly within their chosen budget limits.
+    </p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px;">
+    <!-- Review 1: Home Interior -->
+    <div class="glass-panel" style="padding: 32px; display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: #6366f1; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.1rem;">
+              AP
+            </div>
+            <div>
+              <h4 style="font-size: 1.05rem;">Abirami Parthiban</h4>
+              <span style="font-size: 0.8rem; color: var(--text-secondary);">Bangalore, India</span>
+            </div>
+          </div>
+          <span class="badge badge-primary">Home Interior</span>
+        </div>
+        <div style="color: #f59e0b; margin-bottom: 12px; font-size: 1.1rem;">★★★★★</div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+          "I was struggling to furnish our 2BHK living room with a strict ₹65,000 budget. PocketSmart AI balanced Scandinavian oak pieces from IKEA with warm LED sconces from Amazon. The total came to ₹62,400! We decorated effortlessly without spending an extra rupee."
+        </p>
+      </div>
+      <div style="margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--border-glass); font-size: 0.85rem; color: #34d399;">
+        ✓ Saved ₹2,600 under budget
+      </div>
+    </div>
+
+    <!-- Review 2: Party Planner -->
+    <div class="glass-panel" style="padding: 32px; display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: #f43f5e; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.1rem;">
+              TP
+            </div>
+            <div>
+              <h4 style="font-size: 1.05rem;">Thanga Pandi</h4>
+              <span style="font-size: 0.8rem; color: var(--text-secondary);">Madurai, India</span>
+            </div>
+          </div>
+          <span class="badge badge-rose">Party Planner</span>
+        </div>
+        <div style="color: #f59e0b; margin-bottom: 12px; font-size: 1.1rem;">★★★★★</div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+          "Organized my brother's 25th birthday with 30 guests for ₹30,000. The AI calculated ₹650 per guest for Zomato party platters, recommended an OYO terrace venue, and suggested Amazon neon props. The entire event was a massive hit!"
+        </p>
+      </div>
+      <div style="margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--border-glass); font-size: 0.85rem; color: #34d399;">
+        ✓ Handled 30 guests flawlessly
+      </div>
+    </div>
+
+    <!-- Review 3: Jewelry Matcher -->
+    <div class="glass-panel" style="padding: 32px; display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: #f59e0b; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.1rem;">
+              YK
+            </div>
+            <div>
+              <h4 style="font-size: 1.05rem;">Yogesh Kumar</h4>
+              <span style="font-size: 0.8rem; color: var(--text-secondary);">Chennai, India</span>
+            </div>
+          </div>
+          <span class="badge badge-amber">Jewelry Matcher</span>
+        </div>
+        <div style="color: #f59e0b; margin-bottom: 12px; font-size: 1.1rem;">★★★★★</div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+          "The multimodal image upload feature is pure magic! My sister uploaded a photo of her emerald silk reception saree, and Gemini instantly recommended a matching antique pearl choker and chandbalis from CaratLane under ₹20,000."
+        </p>
+      </div>
+      <div style="margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--border-glass); font-size: 0.85rem; color: #34d399;">
+        ✓ Exact color & neckline coordination
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 60px;">
+    <h3 style="font-size: 1.6rem; margin-bottom: 18px;">Ready to create your own smart budget plan?</h3>
+    <div style="display: flex; justify-content: center; gap: 16px;">
+      <a href="/home-planner" class="btn btn-primary">Start Planning Now →</a>
+      <a href="/register" class="btn btn-secondary">Create Free Account</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}PocketSmart AI - Your Smart Budget & Recommendation Assistant{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <div class="logo-icon">⚡</div>
+        <div>Pocket<span class="highlight">Smart</span> <span style="font-size:0.75em; opacity:0.8;">AI</span></div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/home-planner" class="nav-link">🛋️ Home Interior</a></li>
+        <li><a href="/party-planner" class="nav-link">🎉 Party Planner</a></li>
+        <li><a href="/jewelry-planner" class="nav-link">💎 Jewelry</a></li>
+        <li><a href="/testimonials" class="nav-link">⭐ Reviews</a></li>
+        <li><a href="/history" class="nav-link">📜 History</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        {% if user %}
+          <div class="user-badge">
+            <div class="user-avatar">{{ user.username[0]|upper }}</div>
+            <span>{{ user.username }}</span>
+          </div>
+          <a href="/dashboard" class="btn btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">Dashboard</a>
+          <a href="/logout" class="btn btn-secondary" style="padding: 6px 14px; font-size: 0.85rem; color: #fb7185;">Logout</a>
+        {% else %}
+          <a href="/login" class="btn btn-secondary" style="padding: 8px 16px;">Sign In</a>
+          <a href="/register" class="btn btn-primary" style="padding: 8px 18px;">Get Started</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-logo" style="margin-bottom: 12px;">
+            <div class="logo-icon" style="width:32px; height:32px; font-size:1rem;">⚡</div>
+            <div>Pocket<span class="highlight">Smart</span> AI</div>
+          </div>
+          <p style="max-width: 400px; color: var(--text-secondary); font-size: 0.9rem;">
+            GenAI-powered, cross-platform budget and lifestyle recommendation assistant.
+            Intelligently allocating resources across Amazon, Flipkart, IKEA, Swiggy, Zomato, OYO and high-end jewelry brands.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="font-size: 1rem; margin-bottom: 14px;">Smart Planners</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
+            <li><a href="/home-planner" class="nav-link" style="padding:0;">Home Interior Planner</a></li>
+            <li><a href="/party-planner" class="nav-link" style="padding:0;">Party Budget Allocation</a></li>
+            <li><a href="/jewelry-planner" class="nav-link" style="padding:0;">Occasion Jewelry Matcher</a></li>
+            <li><a href="/history" class="nav-link" style="padding:0;">Saved Recommendation Plans</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 1rem; margin-bottom: 14px;">Integrated Ecosystem</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+            <span class="platform-badge platform-ikea">IKEA</span>
+            <span class="platform-badge platform-amazon">Amazon</span>
+            <span class="platform-badge platform-flipkart">Flipkart</span>
+            <span class="platform-badge platform-swiggy">Swiggy</span>
+            <span class="platform-badge platform-zomato">Zomato</span>
+            <span class="platform-badge platform-oyo">OYO</span>
+            <span class="platform-badge platform-caratlane">CaratLane</span>
+            <span class="platform-badge platform-tanishq">Tanishq</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 PocketSmart AI. Built with FastAPI & Google Gemini 1.5 Flash Pro.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/js/main.js"></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Home Interior Budget Planner - PocketSmart AI{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="glass-panel planner-form-container">
+    <div class="form-header">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom: 8px;">
+        <span class="badge badge-primary">Scenario 1</span>
+        <span style="font-size: 0.85rem; color: var(--text-secondary);">Powered by Gemini 1.5 Flash Pro</span>
+      </div>
+      <h2>🛋️ Home Interior Budget Planner</h2>
+      <p>
+        Define your target budget, select rooms, and specify required furniture, lighting, and fixtures.
+        Gemini will curate recommendations across <strong>IKEA, Amazon, and Flipkart</strong> tailored to your aesthetic.
+      </p>
+    </div>
+
+    <form method="POST" action="/generate-home" class="ajax-planner-form">
+      <div class="form-grid">
+        <!-- Budget Section -->
+        <div class="form-group full-width">
+          <label for="totalBudgetInput">
+            <span>Total Budget (INR)</span>
+            <span style="margin-left: auto; color: #34d399; font-weight: 700;">₹ <span id="budgetDisplay">60,000</span></span>
+          </label>
+          <div class="budget-input-wrapper">
+            <input type="range" id="budgetSlider" min="5000" max="500000" step="5000" value="60000" class="budget-slider">
+            <input type="number" id="totalBudgetInput" name="total_budget" class="form-control" value="60000" min="5000" max="1000000" style="width: 140px;" required>
+            <input type="hidden" name="currency" value="INR">
+          </div>
+        </div>
+
+        <!-- Room Types Selection -->
+        <div class="form-group full-width">
+          <label>Select Room Types to Furnish *</label>
+          <div class="chips-group">
+            <label class="chip-label">
+              <input type="checkbox" name="room_types" value="Living Room" checked>
+              <span>Living Room</span>
+            </label>
+            <label class="chip-label">
+              <input type="checkbox" name="room_types" value="Master Bedroom" checked>
+              <span>Master Bedroom</span>
+            </label>
+            <label class="chip-label">
+              <input type="checkbox" name="room_types" value="Kitchen">
+              <span>Kitchen</span>
+            </label>
+            <label class="chip-label">
+              <input type="checkbox" name="room_types" value="Dining Area">
+              <span>Dining Area</span>
+            </label>
+            <label class="chip-label">
+              <input type="checkbox" name="room_types" value="Balcony / Outdoor">
+              <span>Balcony</span>
+            </label>
+            <label class="chip-label">
+              <input type="checkbox" name="room_types" value="Home Office / Study">
+              <span>Home Office</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Style Preference -->
+        <div class="form-group">
+          <label for="stylePreference">Interior Style Preference</label>
+          <select id="stylePreference" name="style_preference" class="form-control">
+            <option value="Modern Minimalist" selected>Modern Minimalist</option>
+            <option value="Scandinavian Warm Oak">Scandinavian Warm Oak</option>
+            <option value="Industrial Contemporary">Industrial Contemporary</option>
+            <option value="Traditional Heritage & Teak">Traditional Heritage</option>
+            <option value="Bohemian Eclectic">Bohemian Eclectic</option>
+            <option value="Luxury Hotel Aesthetic">Luxury Hotel Aesthetic</option>
+          </select>
+        </div>
+
+        <!-- Color Palette -->
+        <div class="form-group">
+          <label for="colorPalette">Preferred Color Palette</label>
+          <input type="text" id="colorPalette" name="color_palette" class="form-control" value="Warm Earthy Beige & Natural Wood" placeholder="e.g. Sage Green, Grey & Brass, Monochrome">
+        </div>
+
+        <!-- Dynamic Items & Quantities -->
+        <div class="form-group full-width">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label>Specific Items & Quantities Needed</label>
+            <button type="button" id="btnAddItem" class="btn btn-secondary" style="padding: 4px 12px; font-size: 0.8rem;">+ Add Custom Item</button>
+          </div>
+
+          <div id="dynamicItemsContainer" class="dynamic-items-container">
+            <div class="dynamic-item-row">
+              <input type="text" name="item_name" class="form-control" value="Ceiling Fan (Energy Saving BLDC)" required>
+              <input type="number" name="item_quantity" class="form-control" value="2" min="1" max="10" title="Quantity">
+              <button type="button" class="btn-remove-item" title="Remove Item">✕</button>
+            </div>
+            <div class="dynamic-item-row">
+              <input type="text" name="item_name" class="form-control" value="Living Room Arc Floor Lamp & LED Sconces" required>
+              <input type="number" name="item_quantity" class="form-control" value="1" min="1" max="10" title="Quantity">
+              <button type="button" class="btn-remove-item" title="Remove Item">✕</button>
+            </div>
+            <div class="dynamic-item-row">
+              <input type="text" name="item_name" class="form-control" value="Coffee Table / Center Table" required>
+              <input type="number" name="item_quantity" class="form-control" value="1" min="1" max="10" title="Quantity">
+              <button type="button" class="btn-remove-item" title="Remove Item">✕</button>
+            </div>
+          </div>
+          <span style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+            Specify essential furniture, fans, lights, or dining items for Gemini to allocate quantities.
+          </span>
+        </div>
+
+        <!-- Notes -->
+        <div class="form-group full-width">
+          <label for="notes">Special Requirements or Notes (Optional)</label>
+          <textarea id="notes" name="notes" class="form-control" placeholder="e.g. Rented apartment with no wall drilling allowed; Need smart Alexa compatible lights; Prefer compact space-saving furniture."></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group full-width" style="margin-top: 14px;">
+          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+            ⚡ Generate Smart Home Budget Plan
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

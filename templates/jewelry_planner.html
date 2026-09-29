@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Jewelry Budget Planner - PocketSmart AI{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="glass-panel planner-form-container">
+    <div class="form-header">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom: 8px;">
+        <span class="badge badge-amber">Scenario 3</span>
+        <span style="font-size: 0.85rem; color: var(--text-secondary);">Multimodal Vision Powered by Gemini 1.5 Flash Pro</span>
+      </div>
+      <h2>💎 Occasion Jewelry Budget Matcher</h2>
+      <p>
+        Upload an outfit image or define your color scheme. Gemini analyzes fabric hues, necklines, 
+        and embroidery to match jewelry sets from <strong>CaratLane, Tanishq, Amazon, and Flipkart</strong> within your budget.
+      </p>
+    </div>
+
+    <form method="POST" action="/generate-jewelry" enctype="multipart/form-data" class="ajax-planner-form">
+      <div class="form-grid">
+        <!-- Budget Section -->
+        <div class="form-group full-width">
+          <label for="totalBudgetInput">
+            <span>Total Jewelry Budget (INR)</span>
+            <span style="margin-left: auto; color: #34d399; font-weight: 700;">₹ <span id="budgetDisplay">20,000</span></span>
+          </label>
+          <div class="budget-input-wrapper">
+            <input type="range" id="budgetSlider" min="2000" max="150000" step="1000" value="20000" class="budget-slider">
+            <input type="number" id="totalBudgetInput" name="total_budget" class="form-control" value="20000" min="2000" max="500000" style="width: 140px;" required>
+            <input type="hidden" name="currency" value="INR">
+          </div>
+        </div>
+
+        <!-- Occasion Selection -->
+        <div class="form-group">
+          <label for="occasion">Occasion *</label>
+          <select id="occasion" name="occasion" class="form-control" required>
+            <option value="Wedding / Reception" selected>Wedding / Reception</option>
+            <option value="Festive / Diwali / Puja">Festive / Diwali / Puja</option>
+            <option value="Sangeet / Mehendi Ceremony">Sangeet / Mehendi Ceremony</option>
+            <option value="Cocktail Evening / Gala">Cocktail Evening / Gala</option>
+            <option value="Office / Daily Minimalist">Office / Daily Minimalist</option>
+          </select>
+        </div>
+
+        <!-- Style Preference -->
+        <div class="form-group">
+          <label for="stylePreference">Jewelry Style Aesthetic</label>
+          <select id="stylePreference" name="style_preference" class="form-control">
+            <option value="Contemporary Gold & Pearls" selected>Contemporary Gold & Pearls</option>
+            <option value="Antique Temple Gold">Antique Temple Gold</option>
+            <option value="Royal Kundan & Polki">Royal Kundan & Polki</option>
+            <option value="Minimalist American Diamond / Solitaire">Minimalist Diamond / Solitaire</option>
+            <option value="Oxidised Bohemian Silver">Oxidised Bohemian Silver</option>
+            <option value="Rose Gold Glamour">Rose Gold Glamour</option>
+          </select>
+        </div>
+
+        <!-- Outfit Type -->
+        <div class="form-group">
+          <label for="outfitType">Outfit Type</label>
+          <input type="text" id="outfitType" name="outfit_type" class="form-control" value="Embroidered Silk Saree" placeholder="e.g. Saree, Lehenga, Evening Gown, Indo-Western">
+        </div>
+
+        <!-- Outfit Color -->
+        <div class="form-group">
+          <label for="outfitColor">Outfit Color Scheme</label>
+          <input type="text" id="outfitColor" name="outfit_color" class="form-control" value="Emerald Green & Antique Gold Zari" placeholder="e.g. Pastel Pink, Navy Blue, Crimson Red">
+        </div>
+
+        <!-- Jewelry Pieces Desired -->
+        <div class="form-group full-width">
+          <label>Desired Jewelry Pieces</label>
+          <div class="chips-group">
+            <label class="chip-label">
+              <input type="checkbox" name="jewelry_types" value="Necklace / Choker" checked>
+              <span>Necklace / Choker</span>
+            </label>
+            <label class="chip-label">
+              <input type="checkbox" name="jewelry_types" value="Earrings / Jhumkas" checked>
+              <span>Earrings / Jhumkas</span>
+            </label>
+            <label class="chip-label">
+              <input type="checkbox" name="jewelry_types" value="Bangles / Bracelets" checked>
+              <span>Bangles / Kadas</span>
+            </label>
+            <label class="chip-label">
+              <input type="checkbox" name="jewelry_types" value="Rings">
+              <span>Finger Rings</span>
+            </label>
+            <label class="chip-label">
+              <input type="checkbox" name="jewelry_types" value="Maang Tikka">
+              <span>Maang Tikka</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Multimodal Outfit Image Upload -->
+        <div class="form-group full-width">
+          <label>Upload Outfit Photo (Optional - Multimodal AI Color & Neckline Analysis)</label>
+          <div class="upload-dropzone" id="imageDropzone">
+            <div style="font-size: 2.2rem; margin-bottom: 8px;">📷</div>
+            <h4 style="font-size: 1.05rem; margin-bottom: 4px;">Drag & Drop your outfit photo here</h4>
+            <p style="font-size: 0.82rem; color: var(--text-secondary);">or click to browse files (JPEG, PNG, WebP)</p>
+            <input type="file" id="outfitImageInput" name="outfit_image" accept="image/*">
+            <input type="hidden" id="imageBase64" name="image_base64">
+          </div>
+
+          <div id="uploadPreview" class="upload-preview">
+            <img id="previewImg" src="" alt="Outfit Preview">
+            <span style="font-size: 0.75rem; color: #34d399; display: block; text-align: center; margin-top: 4px;">✓ Photo Ready for AI Analysis</span>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="form-group full-width">
+          <label for="notes">Additional Styling Preferences (Optional)</label>
+          <textarea id="notes" name="notes" class="form-control" placeholder="e.g. Sensitive ears so prefer lightweight studs; Deep V-neckline so require a pendant necklace."></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group full-width" style="margin-top: 14px;">
+          <button type="submit" class="btn btn-secondary btn-lg" style="width: 100%; border-color: rgba(245, 158, 11, 0.4); background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(99, 102, 241, 0.2));">
+            💎 Curate Matching Jewelry Ensemble
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

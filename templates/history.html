@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Recommendation History - PocketSmart AI{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 40px 24px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+    <div>
+      <h1 style="font-size: 2.2rem; margin-bottom: 6px;">📜 Recommendation History</h1>
+      <p style="color: var(--text-secondary);">Review, reuse, or manage your previous AI-generated budget blueprints.</p>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <a href="/history" class="btn {% if not selected_type %}btn-primary{% else %}btn-secondary{% endif %}" style="padding: 8px 14px; font-size: 0.85rem;">All Plans</a>
+      <a href="/history?plan_type=home" class="btn {% if selected_type == 'home' %}btn-primary{% else %}btn-secondary{% endif %}" style="padding: 8px 14px; font-size: 0.85rem;">🛋️ Home</a>
+      <a href="/history?plan_type=party" class="btn {% if selected_type == 'party' %}btn-primary{% else %}btn-secondary{% endif %}" style="padding: 8px 14px; font-size: 0.85rem;">🎉 Party</a>
+      <a href="/history?plan_type=jewelry" class="btn {% if selected_type == 'jewelry' %}btn-primary{% else %}btn-secondary{% endif %}" style="padding: 8px 14px; font-size: 0.85rem;">💎 Jewelry</a>
+    </div>
+  </div>
+
+  {% if recommendations %}
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 24px;">
+      {% for rec in recommendations %}
+        <div id="rec-card-{{ rec.id }}" class="glass-panel" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+              <span class="badge {% if rec.plan_type == 'home' %}badge-primary{% elif rec.plan_type == 'party' %}badge-rose{% else %}badge-amber{% endif %}">
+                {% if rec.plan_type == 'home' %}🛋️ Home Interior{% elif rec.plan_type == 'party' %}🎉 Party Event{% else %}💎 Jewelry Match{% endif %}
+              </span>
+              <span style="font-size: 0.78rem; color: var(--text-muted);">{{ rec.created_at[:10] }}</span>
+            </div>
+
+            <h3 style="font-size: 1.2rem; margin-bottom: 8px; line-height: 1.3;">{{ rec.title }}</h3>
+            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+              {{ rec.summary }}
+            </p>
+
+            <div style="display: flex; gap: 16px; padding: 12px 14px; background: rgba(15, 23, 42, 0.6); border-radius: var(--radius-sm); margin-bottom: 20px;">
+              <div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">Budget</div>
+                <div style="font-weight: 700; font-size: 1rem; color: #fff;">{{ rec.currency }} {{ "{:,.0f}".format(rec.total_budget) }}</div>
+              </div>
+              <div style="border-left: 1px solid var(--border-glass); padding-left: 16px;">
+                <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">Est. Spend</div>
+                <div style="font-weight: 700; font-size: 1rem; color: #34d399;">{{ rec.currency }} {{ "{:,.0f}".format(rec.total_estimated_cost) }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 14px; border-top: 1px solid var(--border-glass);">
+            <a href="/recommendations-details?id={{ rec.id }}" class="btn btn-secondary" style="flex: 1; font-size: 0.85rem; padding: 8px 12px;">
+              View Full Blueprint →
+            </a>
+            <button onclick="deletePlan({{ rec.id }})" class="btn-remove-item" style="width:36px; height:36px;" title="Delete this plan">
+              🗑️
+            </button>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="glass-panel" style="text-align: center; padding: 60px 20px; border-radius: var(--radius-lg);">
+      <div style="font-size: 3.5rem; margin-bottom: 16px;">📂</div>
+      <h3 style="font-size: 1.4rem; margin-bottom: 8px;">No recommendation history found</h3>
+      <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto 24px;">
+        Generate your first plan across Home Interior, Party Planning, or Jewelry Matching to see your saved blueprints here.
+      </p>
+      <div style="display: flex; justify-content: center; gap: 12px;">
+        <a href="/home-planner" class="btn btn-primary">Try Home Interior Planner</a>
+        <a href="/party-planner" class="btn btn-emerald">Try Party Planner</a>
+      </div>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
