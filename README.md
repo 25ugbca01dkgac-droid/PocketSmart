@@ -160,7 +160,6 @@ pytest -v tests/test_app.py
 - **JWT Token Endpoint:** `POST /token` (OAuth2 compatible)
 - **Session Introspection:** `GET /session-info` and `GET /session-data`
 - **Personal Dashboard:** Accessible at `/dashboard` displaying metrics, savings calculations, and past plans.
-
 ---
 
 ## 📜 License
